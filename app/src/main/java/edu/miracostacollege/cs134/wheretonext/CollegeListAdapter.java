@@ -57,7 +57,6 @@ public class CollegeListAdapter extends ArrayAdapter<College> {
     public View getView(int pos, View convertView, ViewGroup parent)
     {
 
-
         LayoutInflater inflater =
                 (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(mResourceId, null);

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
@@ -78,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         detailsIntent.putExtra("Name", selectedCollege.getName());
         detailsIntent.putExtra("Population", selectedCollege.getPopulation());
-        detailsIntent.putExtra("Tuition", selectedCollege.getTuition());
-        detailsIntent.putExtra("Rating", selectedCollege.getRating());
+        detailsIntent.putExtra("Tuition", (float) selectedCollege.getTuition());
+        detailsIntent.putExtra("Rating", (float) selectedCollege.getRating());
         detailsIntent.putExtra("ImageName", selectedCollege.getImageName());
 
         startActivity(detailsIntent);
@@ -87,11 +88,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void addCollege(View view) {
 
-        // TODO: Implement the code for when the user clicks on the addCollegeButton
-        College newCollege = new College(nameEditText.getText().toString(),
-                Integer.parseInt(populationEditText.getText().toString()),
-                Double.parseDouble(tuitionEditText.getText().toString()),
-                (double) collegeRatingBar.getRating());
+        // Check if EditTexts aren't empty
+        if (nameEditText.getText().toString().equals("") ||
+                populationEditText.getText().toString().equals("") ||
+                tuitionEditText.getText().toString().equals("")) {
+            Toast.makeText(this, "All information about the college must be provided",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else {
+            // TODO: Implement the code for when the user clicks on the addCollegeButton
+            College newCollege = new College(nameEditText.getText().toString(),
+                    Integer.parseInt(populationEditText.getText().toString()),
+                    Double.parseDouble(tuitionEditText.getText().toString()),
+                    (double) collegeRatingBar.getRating());
+
+            collegesList.add(newCollege);
+            collegesListAdapter.notifyDataSetChanged();
+
+        }
 
         // TODO: update adapter list (?) and notify data change ( see ToDo2Day)
     }
